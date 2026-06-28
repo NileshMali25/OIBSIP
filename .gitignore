@@ -1,0 +1,27 @@
+# Ignore the old folder
+WebDev-L1-Pizza Delivery Full Stack Application/
+
+# Ignore dependencies
+node_modules/
+**/node_modules/
+WebDev-L4-Pizza Delivery Full Stack Application/backend/node_modules/
+WebDev-L4-Pizza Delivery Full Stack Application/frontend/node_modules/
+
+# Ignore production builds
+dist/
+**/dist/
+WebDev-L4-Pizza Delivery Full Stack Application/frontend/dist/
+
+# Ignore environment credentials / configurations
+.env
+**/ .env
+WebDev-L4-Pizza Delivery Full Stack Application/backend/.env
+WebDev-L4-Pizza Delivery Full Stack Application/frontend/.env
+*.env.local
+
+# Ignore uploads / cache / logs
+WebDev-L4-Pizza Delivery Full Stack Application/backend/uploads/
+*.log
+.DS_Store
+.idea/
+.vscode/

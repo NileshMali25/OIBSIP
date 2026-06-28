@@ -1,0 +1,21 @@
+# Dependencies
+node_modules/
+backend/node_modules/
+frontend/node_modules/
+
+# Production builds
+dist/
+frontend/dist/
+
+# Environment configurations / credentials
+.env
+backend/.env
+frontend/.env
+*.env.local
+
+# Uploads / Cache / Logs
+backend/uploads/
+*.log
+.DS_Store
+.idea/
+.vscode/

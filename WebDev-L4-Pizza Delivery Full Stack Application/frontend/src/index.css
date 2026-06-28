@@ -1,0 +1,89 @@
+@import "tailwindcss";
+
+@theme {
+  --color-brand-orange: #f39c12;
+  --color-brand-red: #e74c3c;
+  --color-brand-dark: #2c3e50;
+  
+  --animate-float: float 3s ease-in-out infinite;
+  --animate-pulse-slow: pulse 3s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+
+  @keyframes float {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-8px); }
+  }
+}
+
+/* Custom design tokens and helper utilities */
+@layer base {
+  body {
+    @apply transition-colors duration-300;
+  }
+  
+  /* Custom Scrollbar */
+  ::-webkit-scrollbar {
+    width: 6px;
+    height: 6px;
+  }
+  ::-webkit-scrollbar-track {
+    @apply bg-transparent;
+  }
+  ::-webkit-scrollbar-thumb {
+    @apply bg-gray-300 dark:bg-zinc-700 rounded-full hover:bg-gray-400;
+  }
+}
+
+@layer utilities {
+  /* Glassmorphism card styles */
+  .glass-card {
+    @apply bg-white/70 dark:bg-black/70 backdrop-blur-md border border-white/20 dark:border-zinc-800/50 shadow-xl;
+  }
+
+  .glass-nav {
+    @apply bg-white/80 dark:bg-zinc-950/80 backdrop-blur-lg border-b border-gray-200/50 dark:border-zinc-800/50;
+  }
+
+  /* Sleek input styling */
+  .custom-input {
+    @apply w-full px-4 py-2.5 rounded-lg border border-gray-200 dark:border-zinc-800 
+           bg-gray-50/50 dark:bg-zinc-900/50 text-gray-900 dark:text-zinc-100
+           placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-brand-red/50 focus:border-brand-red
+           transition-all duration-200;
+  }
+
+  .custom-label {
+    @apply block text-sm font-medium text-gray-600 dark:text-zinc-400 mb-1.5;
+  }
+
+  /* Buttons */
+  .btn-primary {
+    @apply px-5 py-2.5 rounded-lg bg-gradient-to-r from-brand-red to-red-500 
+           text-white font-semibold shadow-lg shadow-brand-red/20 
+           hover:brightness-110 active:scale-98 transition-all duration-200 cursor-pointer;
+  }
+
+  .btn-secondary {
+    @apply px-5 py-2.5 rounded-lg bg-gray-100 dark:bg-zinc-800 hover:bg-gray-200 dark:hover:bg-zinc-700
+           text-gray-700 dark:text-zinc-200 font-semibold active:scale-98 transition-all duration-200 cursor-pointer;
+  }
+
+  /* Admin analytics grid items */
+  .analytics-card {
+    @apply relative p-6 rounded-xl border border-gray-100 dark:border-zinc-800/80
+           bg-white dark:bg-zinc-900/40 shadow-sm overflow-hidden;
+  }
+}
+
+/* Light / Dark overrides */
+.dark {
+  color-scheme: dark;
+  --background: #09090b;
+}
+
+body {
+  background-color: var(--background, #fdfdfd);
+}
+
+.dark body {
+  background-color: #09090b;
+}
