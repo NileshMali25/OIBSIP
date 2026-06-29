@@ -11,6 +11,7 @@ router.post('/', orderController.createOrder);
 router.post('/verify', orderController.verifyPayment);
 router.get('/my-orders', orderController.getMyOrders);
 router.get('/:id', orderController.getOrder);
+router.get('/:id/invoice', orderController.downloadInvoice);
 
 // Admin-only order management routes
 router.get('/analytics/stats', restrictTo('Admin'), orderController.getAdminAnalytics);

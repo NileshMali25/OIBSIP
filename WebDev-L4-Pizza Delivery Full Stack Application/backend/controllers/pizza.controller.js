@@ -37,7 +37,7 @@ exports.getAllPizzas = async (req, res, next) => {
       const sortBy = req.query.sort.split(',').join(' ');
       query = query.sort(sortBy);
     } else {
-      query = query.sort('-createdAt');
+      query = query.sort('createdAt');
     }
 
     // 3) Field Limiting
@@ -101,12 +101,15 @@ exports.createPizza = async (req, res, next) => {
   try {
     const { name, description, category, basePrice, ingredients } = req.body;
 
-    if (!req.file) {
+    let imageUrl;
+    if (req.file) {
+      // Upload to Cloudinary / local fallback
+      imageUrl = await cloudinaryService.uploadImage(req.file.buffer, 'pizzas');
+    } else if (req.body.image) {
+      imageUrl = req.body.image;
+    } else {
       return next(new AppError('Please upload an image for the pizza', 400));
     }
-
-    // Upload to Cloudinary / local fallback
-    const imageUrl = await cloudinaryService.uploadImage(req.file.buffer, 'pizzas');
 
     // Parse ingredients if sent as a JSON string
     let parsedIngredients = ingredients;

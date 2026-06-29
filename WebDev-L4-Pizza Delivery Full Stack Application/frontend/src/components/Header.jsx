@@ -32,9 +32,14 @@ const Header = () => {
   }, [darkMode]);
 
   const handleLogout = () => {
+    const isAdmin = user?.role === 'Admin';
     dispatch(logout());
     toast.success('Logged out successfully! See you soon 🍕');
-    navigate('/login');
+    if (isAdmin) {
+      navigate('/admin/login');
+    } else {
+      navigate('/login');
+    }
   };
 
   const isActive = (path) => {

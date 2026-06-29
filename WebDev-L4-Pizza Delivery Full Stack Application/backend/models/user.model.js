@@ -45,7 +45,7 @@ const userSchema = new mongoose.Schema({
   },
   profileImage: {
     type: String,
-    default: 'https://res.cloudinary.com/default/image/upload/v1600000000/default-avatar.png'
+    default: 'https://api.dicebear.com/7.x/initials/svg?seed=User&backgroundColor=d32f2f'
   },
   createdAt: {
     type: Date,

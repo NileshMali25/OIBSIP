@@ -1,5 +1,7 @@
 @import "tailwindcss";
 
+@custom-variant dark (&:where(.dark, .dark *));
+
 @theme {
   --color-brand-orange: #f39c12;
   --color-brand-red: #e74c3c;
@@ -17,7 +19,7 @@
 /* Custom design tokens and helper utilities */
 @layer base {
   body {
-    @apply transition-colors duration-300;
+    @apply transition-colors duration-300 bg-white text-gray-900 dark:bg-zinc-950 dark:text-zinc-50;
   }
   
   /* Custom Scrollbar */

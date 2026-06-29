@@ -17,7 +17,7 @@ const AdminDashboard = () => {
   const fetchDashboardData = async () => {
     setLoading(true);
     try {
-      const res = await api.get('/analytics');
+      const res = await api.get('/orders/analytics/stats');
       setMetrics(res.data.data.metrics);
       setRecentOrders(res.data.data.recentOrders);
     } catch (err) {

@@ -11,6 +11,16 @@ const globalErrorHandler = require('./middlewares/error.middleware');
 const app = express();
 
 // 1) GLOBAL MIDDLEWARES
+// CORS configuration
+const corsOptions = {
+  origin: process.env.CLIENT_URL || 'http://localhost:5173',
+  credentials: true,
+  methods: ['GET', 'POST', 'PUT', 'DELETE', 'PATCH', 'OPTIONS'],
+  allowedHeaders: ['Content-Type', 'Authorization']
+};
+app.use(cors(corsOptions));
+app.options('*', cors(corsOptions));
+
 // Set security HTTP headers
 app.use(helmet({
   crossOriginResourcePolicy: false // Allows loading images from server
@@ -25,21 +35,11 @@ if (process.env.NODE_ENV === 'development') {
 
 // Limit requests from same API
 const limiter = rateLimit({
-  max: 100, // Limit each IP to 100 requests per windowMs
+  max: process.env.NODE_ENV === 'development' ? 10000 : 100, // Limit each IP to 100 requests per windowMs (10000 in dev)
   windowMs: 15 * 60 * 1000, // 15 minutes
   message: 'Too many requests from this IP, please try again in 15 minutes!'
 });
 app.use('/api', limiter);
-
-// CORS configuration
-const corsOptions = {
-  origin: process.env.CLIENT_URL || 'http://localhost:5173',
-  credentials: true,
-  methods: ['GET', 'POST', 'PUT', 'DELETE', 'PATCH', 'OPTIONS'],
-  allowedHeaders: ['Content-Type', 'Authorization']
-};
-app.use(cors(corsOptions));
-app.options('*', cors(corsOptions));
 
 // Body parser, reading data from body into req.body (limit to 10kb)
 app.use(express.json({ limit: '10kb' }));

@@ -32,7 +32,7 @@ const AdminPizzas = () => {
 
   const handleToggleAvailable = async (pizzaId, currentVal) => {
     try {
-      await api.patch(`/pizzas/${pizzaId}`, { available: !currentVal });
+      await api.patch(`/pizzas/${pizzaId}/toggle`);
       setPizzas(pizzas.map(p => p._id === pizzaId ? { ...p, available: !currentVal } : p));
       toast.success('Pizza status updated!');
     } catch (err) {
@@ -70,7 +70,7 @@ const AdminPizzas = () => {
         formData.append('image', imageFile);
       } else {
         // Fallback placeholder image if none selected
-        formData.append('image', 'https://res.cloudinary.com/default/image/upload/v1600000000/default-pizza.png');
+        formData.append('image', 'https://images.unsplash.com/photo-1513104890138-7c749659a591?auto=format&fit=crop&w=600&q=80');
       }
 
       const res = await api.post('/pizzas', formData, {
@@ -254,6 +254,7 @@ const AdminPizzas = () => {
                     >
                       <option value="Veg">Veg</option>
                       <option value="Non-Veg">Non-Veg</option>
+                      <option value="Sides">Sides</option>
                       <option value="Beverages">Beverages</option>
                     </select>
                   </div>

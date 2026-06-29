@@ -160,16 +160,9 @@ const Register = () => {
           {/* Submit button */}
           <button
             type="submit"
-            disabled={loading}
             className="w-full btn-primary mt-2 flex items-center justify-center gap-2"
           >
-            {loading ? (
-              <Loader2 className="animate-spin" size={20} />
-            ) : (
-              <>
-                Register <ArrowRight size={18} />
-              </>
-            )}
+            Register <ArrowRight size={18} />
           </button>
         </form>
 

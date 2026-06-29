@@ -19,7 +19,7 @@ const pizzaSchema = new mongoose.Schema({
   category: {
     type: String,
     required: [true, 'Please provide the pizza category'],
-    enum: ['Veg', 'Non-Veg', 'Custom', 'Beverages'],
+    enum: ['Veg', 'Non-Veg', 'Custom', 'Beverages', 'Sides'],
     default: 'Veg'
   },
   basePrice: {

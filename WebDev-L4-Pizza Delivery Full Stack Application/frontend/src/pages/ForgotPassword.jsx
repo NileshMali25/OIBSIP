@@ -80,16 +80,9 @@ const ForgotPassword = () => {
 
           <button
             type="submit"
-            disabled={loading}
             className="w-full btn-primary flex items-center justify-center gap-2"
           >
-            {loading ? (
-              <Loader2 className="animate-spin" size={20} />
-            ) : (
-              <>
-                Send OTP <ArrowRight size={18} />
-              </>
-            )}
+            Send OTP <ArrowRight size={18} />
           </button>
         </form>
       </motion.div>

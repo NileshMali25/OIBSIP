@@ -43,7 +43,7 @@ const Cart = () => {
           <div className="lg:col-span-2 space-y-4">
             {cart.items.map((item) => {
               const pizzaName = item.pizza ? item.pizza.name : 'Custom Pizza';
-              const pizzaImage = item.pizza ? item.pizza.image : 'https://res.cloudinary.com/default/image/upload/v1600000000/default-pizza.png';
+              const pizzaImage = item.pizza ? item.pizza.image : 'https://images.unsplash.com/photo-1513104890138-7c749659a591?auto=format&fit=crop&w=600&q=80';
               const details = item.customPizza ? 
                 `Crust: ${item.customPizza.base}, Sauce: ${item.customPizza.sauce}, Cheese: ${item.customPizza.cheese}, Veggies: ${item.customPizza.vegetables.join(', ')}` : 
                 '';

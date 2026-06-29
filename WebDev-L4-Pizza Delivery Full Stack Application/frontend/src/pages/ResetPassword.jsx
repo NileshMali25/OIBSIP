@@ -140,16 +140,9 @@ const ResetPassword = () => {
           {/* Submit button */}
           <button
             type="submit"
-            disabled={loading}
             className="w-full btn-primary mt-2 flex items-center justify-center gap-2"
           >
-            {loading ? (
-              <Loader2 className="animate-spin" size={20} />
-            ) : (
-              <>
-                Reset Password <ArrowRight size={18} />
-              </>
-            )}
+            Reset Password <ArrowRight size={18} />
           </button>
         </form>
       </motion.div>

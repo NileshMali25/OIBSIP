@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { motion, AnimatePresence } from 'framer-motion';
-import { ArrowLeft, ArrowRight, ShoppingBag, Sparkles, Check } from 'lucide-react';
+import { ArrowLeft, ArrowRight, ShoppingBag, ShoppingCart, Sparkles, Check } from 'lucide-react';
 import { useDispatch } from 'react-redux';
 import { addToCart } from '../redux/cartSlice';
 import api from '../services/api';

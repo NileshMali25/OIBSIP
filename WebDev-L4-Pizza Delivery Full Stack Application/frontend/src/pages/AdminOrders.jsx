@@ -3,7 +3,7 @@ import { Loader2, ShoppingBag, Eye, Calendar, FileText } from 'lucide-react';
 import api from '../services/api';
 import toast from 'react-hot-toast';
 
-const STATUS_OPTIONS = ['Order Received', 'Preparing', 'Baking', 'Out for Delivery', 'Delivered'];
+const STATUS_OPTIONS = ['Order Received', 'Preparing', 'In Kitchen', 'Out For Delivery', 'Delivered'];
 
 const AdminOrders = () => {
   const [orders, setOrders] = useState([]);
@@ -28,7 +28,7 @@ const AdminOrders = () => {
   const handleStatusChange = async (orderId, newStatus) => {
     try {
       toast.loading('Updating status...', { id: 'status-toast' });
-      await api.patch(`/orders/${orderId}/status`, { status: newStatus });
+      await api.patch(`/orders/${orderId}/status`, { orderStatus: newStatus });
       
       // Update local state
       setOrders(orders.map(o => o._id === orderId ? { ...o, orderStatus: newStatus } : o));

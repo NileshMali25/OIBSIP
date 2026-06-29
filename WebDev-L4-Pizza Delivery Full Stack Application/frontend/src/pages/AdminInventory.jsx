@@ -21,7 +21,7 @@ const AdminInventory = () => {
     setLoading(true);
     try {
       const res = await api.get('/inventory');
-      setInventory(res.data.data.items);
+      setInventory(res.data.data.inventory);
     } catch (err) {
       toast.error('Failed to load inventory');
     } finally {

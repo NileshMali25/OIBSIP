@@ -5,6 +5,7 @@ import { useDispatch } from 'react-redux';
 import { addToCart } from '../redux/cartSlice';
 import api from '../services/api';
 import PizzaModal from '../components/PizzaModal';
+import HeroSection from '../components/HeroSection';
 import toast from 'react-hot-toast';
 import { motion } from 'framer-motion';
 
@@ -53,43 +54,7 @@ const Dashboard = () => {
   return (
     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
       {/* 1. HERO CTA BANNER */}
-      <motion.div 
-        initial={{ opacity: 0, scale: 0.98 }}
-        animate={{ opacity: 1, scale: 1 }}
-        className="relative bg-gradient-to-r from-red-500 via-orange-500 to-yellow-500 rounded-3xl p-8 sm:p-12 mb-12 shadow-xl shadow-orange-500/10 overflow-hidden"
-      >
-        <div className="relative z-10 max-w-xl text-white">
-          <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-white/20 backdrop-blur-md text-xs font-bold uppercase tracking-wider mb-4 border border-white/10">
-            <Sparkles size={12} /> Special Welcome offer
-          </span>
-          <h1 className="text-4xl sm:text-5xl font-black tracking-tight leading-tight mb-4">
-            Hungry? <br/>
-            Let's Build Your Dream Pizza!
-          </h1>
-          <p className="text-white/90 text-sm sm:text-base mb-8 font-medium">
-            Choose your custom crust, sauces, fresh toppings, and cheeses. Get it delivered hot in 30 minutes!
-          </p>
-          <div className="flex flex-wrap gap-4">
-            <button 
-              onClick={() => navigate('/custom-builder')}
-              className="px-6 py-3 rounded-xl bg-white text-brand-red font-extrabold hover:bg-gray-100 hover:scale-105 active:scale-98 shadow-lg shadow-black/10 transition-all duration-200 cursor-pointer"
-            >
-              Build Custom Pizza 🛠️
-            </button>
-            <a 
-              href="#menu-catalog"
-              className="px-6 py-3 rounded-xl bg-black/20 backdrop-blur-sm border border-white/20 text-white font-extrabold hover:bg-black/35 hover:scale-105 transition-all duration-200"
-            >
-              Browse Menu
-            </a>
-          </div>
-        </div>
-
-        {/* Decorative elements */}
-        <div className="absolute right-0 bottom-0 top-0 w-1/2 hidden md:flex items-center justify-center opacity-85 pointer-events-none">
-          <span className="text-[180px] animate-float">🍕</span>
-        </div>
-      </motion.div>
+      <HeroSection />
 
       {/* 2. CONTROLS SECTION (Search, Category Filters) */}
       <div id="menu-catalog" className="mb-8 flex flex-col md:flex-row md:items-center justify-between gap-4">
@@ -117,7 +82,7 @@ const Dashboard = () => {
 
           {/* Category Filter tabs */}
           <div className="flex items-center gap-1 bg-gray-100 dark:bg-zinc-900 p-1 rounded-xl">
-            {['All', 'Veg', 'Non-Veg', 'Beverages'].map((cat) => (
+            {['All', 'Veg', 'Non-Veg', 'Sides', 'Beverages'].map((cat) => (
               <button
                 key={cat}
                 onClick={() => setCategoryFilter(cat)}

@@ -46,7 +46,7 @@ const VerifyOtp = () => {
     dispatch(authStart());
     try {
       const res = await api.post('/auth/verify-otp', { email, otp });
-      dispatch(authSuccess(res.data.data));
+      dispatch(authSuccess({ user: res.data.data.user, token: res.data.token }));
       toast.success('Email verified successfully! Welcome to Pizza Delivery 🍕');
       navigate('/');
     } catch (err) {
@@ -107,10 +107,10 @@ const VerifyOtp = () => {
 
           <button
             type="submit"
-            disabled={loading || otp.length !== 6}
+            disabled={otp.length !== 6}
             className="w-full btn-primary flex items-center justify-center gap-2 disabled:opacity-50 disabled:cursor-not-allowed"
           >
-            {loading ? <Loader2 className="animate-spin" size={20} /> : 'Verify Code'}
+            Verify Code
           </button>
         </form>
 

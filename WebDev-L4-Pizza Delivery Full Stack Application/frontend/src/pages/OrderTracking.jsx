@@ -6,13 +6,13 @@ import { socket } from '../services/socket';
 import api from '../services/api';
 import toast from 'react-hot-toast';
 
-const STATUS_FLOW = ['Order Received', 'Preparing', 'Baking', 'Out for Delivery', 'Delivered'];
+const STATUS_FLOW = ['Order Received', 'Preparing', 'In Kitchen', 'Out For Delivery', 'Delivered'];
 
 const STEP_ICONS = {
   'Order Received': ClipboardList,
   'Preparing': ChefHat,
-  'Baking': Flame,
-  'Out for Delivery': Bike,
+  'In Kitchen': Flame,
+  'Out For Delivery': Bike,
   'Delivered': CheckCircle2
 };
 
@@ -175,8 +175,8 @@ const OrderTracking = () => {
                   <p className="text-xs text-gray-400 dark:text-zinc-500 mt-0.5">
                     {status === 'Order Received' && 'Order validated and placed in queue'}
                     {status === 'Preparing' && 'Custom details loaded, toppings allocated'}
-                    {status === 'Baking' && 'Piping hot, firing up coal chamber'}
-                    {status === 'Out for Delivery' && 'Rider transit, direct delivery route'}
+                    {status === 'In Kitchen' && 'Piping hot, baking in the wood-fired oven'}
+                    {status === 'Out For Delivery' && 'Rider transit, direct delivery route'}
                     {status === 'Delivered' && 'Pizzeria transaction complete! Enjoy'}
                   </p>
                 </div>

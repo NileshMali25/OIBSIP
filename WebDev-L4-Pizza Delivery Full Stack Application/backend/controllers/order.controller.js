@@ -209,13 +209,19 @@ exports.verifyPayment = async (req, res, next) => {
       // Trigger Stock Reductions and PDF Invoice
       await reduceInventory(order);
 
-      // Send order confirmation email
-      const user = await User.findById(order.user);
-      if (user) {
-        await order.populate('items.pizza');
-        await invoiceService.generateInvoicePDF(order, user);
-        await emailService.sendOrderConfirmationEmail(user.email, order);
-      }
+      // Send order confirmation email (Non-blocking)
+      (async () => {
+        try {
+          const user = await User.findById(order.user);
+          if (user) {
+            await order.populate('items.pizza');
+            await invoiceService.generateInvoicePDF(order, user);
+            await emailService.sendOrderConfirmationEmail(user.email, order);
+          }
+        } catch (err) {
+          console.error('Error in background email/invoice process (Mock Mode):', err);
+        }
+      })();
 
       // Socket.io trigger will be connected in real-time steps
       if (req.app.get('socketio')) {
@@ -257,13 +263,19 @@ exports.verifyPayment = async (req, res, next) => {
     // Reduce stock
     await reduceInventory(order);
 
-    // Generate Invoice and Send confirmation email
-    const user = await User.findById(order.user);
-    if (user) {
-      await order.populate('items.pizza');
-      await invoiceService.generateInvoicePDF(order, user);
-      await emailService.sendOrderConfirmationEmail(user.email, order);
-    }
+    // Generate Invoice and Send confirmation email (Non-blocking)
+    (async () => {
+      try {
+        const user = await User.findById(order.user);
+        if (user) {
+          await order.populate('items.pizza');
+          await invoiceService.generateInvoicePDF(order, user);
+          await emailService.sendOrderConfirmationEmail(user.email, order);
+        }
+      } catch (err) {
+        console.error('Error in background email/invoice process:', err);
+      }
+    })();
 
     // Socket.io broadcast
     if (req.app.get('socketio')) {
@@ -445,15 +457,22 @@ exports.getAdminAnalytics = async (req, res, next) => {
 
     // Total Orders Count
     const totalOrders = await Order.countDocuments();
-    const paidOrders = await Order.countDocuments({ paymentStatus: 'Paid' });
-
-    // Total Users Count
-    const totalUsers = await User.countDocuments({ role: 'User' });
 
     // Low stock items count
     const lowStockCount = await Inventory.countDocuments({
       $expr: { $lt: ['$quantity', '$minimumQuantity'] }
     });
+
+    // Custom pizza orders count
+    const customPizzasCount = await Order.countDocuments({
+      'items.customPizza': { $exists: true }
+    });
+
+    // Recent 5 orders populated with user
+    const recentOrders = await Order.find()
+      .sort('-createdAt')
+      .limit(5)
+      .populate('user', 'name email phone');
 
     // Recent Sales Chart Details (Last 7 Days)
     const sevenDaysAgo = new Date();
@@ -479,14 +498,54 @@ exports.getAdminAnalytics = async (req, res, next) => {
     res.status(200).json({
       status: 'success',
       data: {
-        stats: {
-          totalRevenue,
-          totalOrders,
-          paidOrders,
-          totalUsers,
-          lowStockCount
+        metrics: {
+          revenue: totalRevenue,
+          ordersCount: totalOrders,
+          lowStockCount,
+          customPizzasCount
         },
+        recentOrders,
         salesHistory
+      }
+    });
+  } catch (error) {
+    next(error);
+  }
+};
+
+// 8) Download Invoice PDF for an Order
+exports.downloadInvoice = async (req, res, next) => {
+  try {
+    const order = await Order.findById(req.params.id);
+    if (!order) {
+      return next(new AppError('No order found with that ID', 404));
+    }
+
+    // Only allow owner of order or Admin to download invoice
+    if (order.user.toString() !== req.user._id.toString() && req.user.role !== 'Admin') {
+      return next(new AppError('You do not have permission to download this invoice', 403));
+    }
+
+    const fs = require('fs');
+    const path = require('path');
+    const invoicePath = path.join(__dirname, '../uploads/invoices', `invoice_${order._id}.pdf`);
+
+    // If PDF doesn't exist, generate it now
+    if (!fs.existsSync(invoicePath)) {
+      const user = await User.findById(order.user);
+      if (!user) {
+        return next(new AppError('User belonging to this order no longer exists', 404));
+      }
+      await order.populate('items.pizza');
+      await invoiceService.generateInvoicePDF(order, user);
+    }
+
+    // Send the file
+    res.download(invoicePath, `invoice_${order._id}.pdf`, (err) => {
+      if (err) {
+        if (!res.headersSent) {
+          return next(new AppError('Error downloading invoice file', 500));
+        }
       }
     });
   } catch (error) {

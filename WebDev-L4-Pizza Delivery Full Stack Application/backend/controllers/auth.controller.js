@@ -55,8 +55,8 @@ exports.register = async (req, res, next) => {
       otp: otpCode
     });
 
-    // Send OTP verification email
-    await emailService.sendOtpEmail(email, otpCode);
+    // Send OTP verification email (Non-blocking)
+    emailService.sendOtpEmail(email, otpCode);
 
     res.status(201).json({
       status: 'success',
@@ -90,8 +90,8 @@ exports.verifyOtp = async (req, res, next) => {
     // Delete the verified OTP
     await OTP.deleteOne({ _id: otpRecord._id });
 
-    // Send welcome email
-    await emailService.sendWelcomeEmail(email, user.name);
+    // Send welcome email (Non-blocking)
+    emailService.sendWelcomeEmail(email, user.name);
 
     // Return JWT token and user info
     createSendToken(user, 200, res);
@@ -127,8 +127,8 @@ exports.resendOtp = async (req, res, next) => {
       otp: otpCode
     });
 
-    // Send OTP email
-    await emailService.sendOtpEmail(email, otpCode);
+    // Send OTP email (Non-blocking)
+    emailService.sendOtpEmail(email, otpCode);
 
     res.status(200).json({
       status: 'success',
@@ -143,10 +143,18 @@ exports.resendOtp = async (req, res, next) => {
 exports.login = async (req, res, next) => {
   try {
     const { email, password } = req.body;
+    console.log(`[LOGIN ATTEMPT] - Email: "${email}", Password: "${password}"`);
 
     // Find user and explicitly select password field
     const user = await User.findOne({ email }).select('+password');
-    if (!user || !(await user.correctPassword(password, user.password))) {
+    if (!user) {
+      console.log(`[LOGIN FAILED] - User not found for email: "${email}"`);
+      return next(new AppError('Incorrect email or password.', 401));
+    }
+
+    const isCorrect = await user.correctPassword(password, user.password);
+    console.log(`[LOGIN DEBUG] - User found in DB. Password match result: ${isCorrect}`);
+    if (!isCorrect) {
       return next(new AppError('Incorrect email or password.', 401));
     }
 
@@ -190,8 +198,8 @@ exports.forgotPassword = async (req, res, next) => {
       otp: otpCode
     });
 
-    // Send reset email
-    await emailService.sendResetPasswordEmail(email, otpCode);
+    // Send reset email (Non-blocking)
+    emailService.sendResetPasswordEmail(email, otpCode);
 
     res.status(200).json({
       status: 'success',

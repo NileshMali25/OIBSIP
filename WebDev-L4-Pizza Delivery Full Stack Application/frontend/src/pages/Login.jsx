@@ -30,7 +30,7 @@ const Login = () => {
     dispatch(authStart());
     try {
       const res = await api.post('/auth/login', data);
-      dispatch(authSuccess(res.data.data));
+      dispatch(authSuccess({ user: res.data.data.user, token: res.data.token }));
       toast.success('Logged in successfully! Welcome back 🍕');
       navigate('/');
     } catch (err) {
@@ -112,16 +112,9 @@ const Login = () => {
           {/* Submit button */}
           <button
             type="submit"
-            disabled={loading}
             className="w-full btn-primary flex items-center justify-center gap-2"
           >
-            {loading ? (
-              <Loader2 className="animate-spin" size={20} />
-            ) : (
-              <>
-                Sign In <ArrowRight size={18} />
-              </>
-            )}
+            Sign In <ArrowRight size={18} />
           </button>
         </form>
 

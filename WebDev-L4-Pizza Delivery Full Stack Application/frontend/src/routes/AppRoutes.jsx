@@ -21,12 +21,14 @@ import AdminDashboard from '../pages/AdminDashboard';
 import AdminPizzas from '../pages/AdminPizzas';
 import AdminInventory from '../pages/AdminInventory';
 import AdminOrders from '../pages/AdminOrders';
+import AdminLogin from '../pages/AdminLogin';
 
 const AppRoutes = () => {
   return (
     <Routes>
       {/* Public Routes */}
       <Route path="/login" element={<Login />} />
+      <Route path="/admin/login" element={<AdminLogin />} />
       <Route path="/register" element={<Register />} />
       <Route path="/verify-otp" element={<VerifyOtp />} />
       <Route path="/forgot-password" element={<ForgotPassword />} />
