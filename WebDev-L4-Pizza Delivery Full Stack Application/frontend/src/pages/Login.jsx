@@ -112,9 +112,18 @@ const Login = () => {
           {/* Submit button */}
           <button
             type="submit"
-            className="w-full btn-primary flex items-center justify-center gap-2"
+            disabled={loading}
+            className="w-full btn-primary flex items-center justify-center gap-2 disabled:opacity-50 disabled:cursor-not-allowed"
           >
-            Sign In <ArrowRight size={18} />
+            {loading ? (
+              <>
+                <Loader2 className="animate-spin" size={18} /> Signing In...
+              </>
+            ) : (
+              <>
+                Sign In <ArrowRight size={18} />
+              </>
+            )}
           </button>
         </form>
 
