@@ -10,7 +10,7 @@ frontend/dist/
 # Environment configurations / credentials
 .env
 backend/.env
-frontend/.env
+!frontend/.env
 *.env.local
 
 # Uploads / Cache / Logs
