@@ -3,7 +3,25 @@ const socketIO = require('socket.io');
 const initSocket = (server, app) => {
   const io = socketIO(server, {
     cors: {
-      origin: process.env.CLIENT_URL || 'http://localhost:5173',
+      origin: function (origin, callback) {
+        const allowedOrigins = [
+          'http://localhost:5173',
+          'https://pizzadelivary.vercel.app',
+          process.env.CLIENT_URL
+        ].filter(Boolean);
+        
+        // Allow local network IP addresses in development or if they match standard private IPs
+        const isLocalIp = origin && /^http:\/\/(192\.168\.\d+\.\d+|10\.\d+\.\d+\.\d+|172\.(1[6-9]|2\d|3[01])\.\d+\.\d+|localhost|127\.0\.0\.1)(:\d+)?$/.test(origin);
+        
+        // Allow any Vercel deployment domain
+        const isVercel = origin && /\.vercel\.app$/.test(origin);
+        
+        if (!origin || allowedOrigins.indexOf(origin) !== -1 || isLocalIp || isVercel || process.env.NODE_ENV !== 'production') {
+          callback(null, true);
+        } else {
+          callback(new Error('Not allowed by CORS'));
+        }
+      },
       methods: ['GET', 'POST'],
       credentials: true
     }
