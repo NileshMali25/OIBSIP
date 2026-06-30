@@ -2,8 +2,17 @@ import axios from 'axios';
 import { store } from '../redux/store';
 import { logout } from '../redux/authSlice';
 
+const getBaseURL = () => {
+  if (import.meta.env.VITE_API_URL) {
+    return import.meta.env.VITE_API_URL;
+  }
+  // Fallback: use current hostname if accessed via IP or localhost
+  const hostname = window.location.hostname;
+  return `http://${hostname}:5000/api/v1`;
+};
+
 const api = axios.create({
-  baseURL: import.meta.env.VITE_API_URL || 'http://localhost:5000/api/v1',
+  baseURL: getBaseURL(),
   headers: {
     'Content-Type': 'application/json'
   }

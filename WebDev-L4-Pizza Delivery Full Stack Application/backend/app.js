@@ -20,7 +20,10 @@ const corsOptions = {
       process.env.CLIENT_URL
     ].filter(Boolean);
     
-    if (!origin || allowedOrigins.indexOf(origin) !== -1) {
+    // Allow local network IP addresses in development or if they match standard private IPs
+    const isLocalIp = origin && /^http:\/\/(192\.168\.\d+\.\d+|10\.\d+\.\d+\.\d+|172\.(1[6-9]|2\d|3[01])\.\d+\.\d+|localhost|127\.0\.0\.1)(:\d+)?$/.test(origin);
+    
+    if (!origin || allowedOrigins.indexOf(origin) !== -1 || isLocalIp) {
       callback(null, true);
     } else {
       callback(new Error('Not allowed by CORS'));
