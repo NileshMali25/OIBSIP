@@ -3,12 +3,17 @@ import { store } from '../redux/store';
 import { logout } from '../redux/authSlice';
 
 const getBaseURL = () => {
-  if (import.meta.env.VITE_API_URL) {
-    return import.meta.env.VITE_API_URL;
+  let url = import.meta.env.VITE_API_URL;
+  if (!url) {
+    const hostname = window.location.hostname;
+    url = `http://${hostname}:5000/api/v1`;
   }
-  // Fallback: use current hostname if accessed via IP or localhost
-  const hostname = window.location.hostname;
-  return `http://${hostname}:5000/api/v1`;
+  // Ensure the URL ends with /api/v1 if it doesn't already
+  if (url && !url.endsWith('/api/v1') && !url.endsWith('/api/v1/')) {
+    const cleanUrl = url.endsWith('/') ? url.slice(0, -1) : url;
+    return `${cleanUrl}/api/v1`;
+  }
+  return url;
 };
 
 const api = axios.create({
