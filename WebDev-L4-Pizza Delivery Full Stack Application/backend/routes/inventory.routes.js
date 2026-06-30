@@ -14,5 +14,6 @@ router.use(restrictTo('Admin'));
 router.get('/', inventoryController.getAllInventory);
 router.post('/', inventoryController.createInventoryItem);
 router.put('/:id', inventoryController.updateInventoryItem);
+router.patch('/:id', inventoryController.updateInventoryItem);
 
 module.exports = router;
