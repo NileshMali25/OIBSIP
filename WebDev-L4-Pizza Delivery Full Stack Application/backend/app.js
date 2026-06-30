@@ -14,19 +14,21 @@ const app = express();
 // CORS configuration
 const corsOptions = {
   origin: function (origin, callback) {
+    // In development mode, allow all origins to facilitate testing from local network/devices
+    if (!origin || process.env.NODE_ENV !== 'production') {
+      return callback(null, true);
+    }
+
     const allowedOrigins = [
       'http://localhost:5173',
       'https://pizzadelivary.vercel.app',
       process.env.CLIENT_URL
     ].filter(Boolean);
     
-    // Allow local network IP addresses in development or if they match standard private IPs
-    const isLocalIp = origin && /^http:\/\/(192\.168\.\d+\.\d+|10\.\d+\.\d+\.\d+|172\.(1[6-9]|2\d|3[01])\.\d+\.\d+|localhost|127\.0\.0\.1)(:\d+)?$/.test(origin);
-    
     // Allow any Vercel deployment domain
     const isVercel = origin && /\.vercel\.app$/.test(origin);
     
-    if (!origin || allowedOrigins.indexOf(origin) !== -1 || isLocalIp || isVercel) {
+    if (allowedOrigins.indexOf(origin) !== -1 || isVercel) {
       callback(null, true);
     } else {
       callback(new Error('Not allowed by CORS'));
