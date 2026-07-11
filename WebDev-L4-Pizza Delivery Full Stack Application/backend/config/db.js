@@ -6,6 +6,10 @@ dns.setServers(['8.8.8.8', '8.8.4.4']);
 
 const connectDB = async () => {
   try {
+    if (!process.env.MONGODB_URL) {
+      console.error("CRITICAL ERROR: MONGODB_URL is not defined in the environment variables!");
+      process.exit(1);
+    }
     const conn = await mongoose.connect(process.env.MONGODB_URL);
     console.log(`MongoDB Connected: ${conn.connection.host}`);
   } catch (error) {
