@@ -28,7 +28,7 @@ const corsOptions = {
     // Allow any Vercel deployment domain
     const isVercel = origin && /\.vercel\.app$/.test(origin);
     
-    if (allowedOrigins.indexOf(origin) !== -1 || isVercel) {
+    if (!origin || allowedOrigins.indexOf(origin) !== -1 || isVercel) {
       callback(null, true);
     } else {
       callback(new Error('Not allowed by CORS'));
