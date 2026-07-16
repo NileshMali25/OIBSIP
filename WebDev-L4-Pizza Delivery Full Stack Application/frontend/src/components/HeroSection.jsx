@@ -5,41 +5,41 @@ import { Sparkles, ArrowRight, Flame } from 'lucide-react';
 
 const HERO_PIZZAS = [
   {
-    name: "chicken Tikka Masala pizza",
-    description: "Tender chicken chunks marinated in rich aromatic tikka masala gravy, topped with sliced red onions and mozzarella.",
+    name: "BBQ chicken pizza",
+    description: "Smoky barbecue chicken pieces combined with sweet onions and melted cheese.",
     price: 399,
     category: "Non-Veg",
-    image: "https://images.unsplash.com/photo-1574071318508-1cdbab80d002?auto=format&fit=crop&w=600&q=80",
+    image: "https://res.cloudinary.com/dhc4icfi6/image/upload/v1783885563/pizzas/pzuccfpyhqwpbdwgzze8.jpg",
     glowColor: "rgba(239, 68, 68, 0.45)",
     accentGradient: "from-red-500 to-orange-500",
     badgeClass: "text-red-500 bg-red-500/10 border-red-500/20"
   },
   {
-    name: "Pepperoni Supreme",
+    name: "pepperoni pizza",
     description: "An American classic loaded with double helpings of spicy cured pepperoni slices, extra mozzarella, and seasoned Italian herbs.",
     price: 399,
     category: "Non-Veg",
-    image: "https://images.unsplash.com/photo-1513104890138-7c749659a591?auto=format&fit=crop&w=600&q=80",
+    image: "https://res.cloudinary.com/dhc4icfi6/image/upload/v1783884350/pizzas/w9wbsxgiihomu0zmu1hf.webp",
     glowColor: "rgba(249, 115, 22, 0.45)",
     accentGradient: "from-orange-500 to-amber-500",
     badgeClass: "text-orange-500 bg-orange-500/10 border-orange-500/20"
   },
   {
-    name: "Cheese Margerita pizza",
-    description: "A simple yet perfect classic loaded with double helpings of delicious melted mozzarella cheese and basil over a tangy tomato sauce.",
-    price: 249,
+    name: "Farmhouse pizza",
+    description: "A healthy, crunchy medley of onions, green capsicum, juicy tomatoes, and fresh mushrooms.",
+    price: 329,
     category: "Veg",
-    image: "https://images.unsplash.com/photo-1590947132387-155cc02f3212?auto=format&fit=crop&w=600&q=80",
+    image: "https://res.cloudinary.com/dhc4icfi6/image/upload/v1783885425/pizzas/dv3rieoe81ejqmsr4iok.webp",
     glowColor: "rgba(34, 197, 94, 0.45)",
     accentGradient: "from-green-500 to-emerald-500",
     badgeClass: "text-green-500 bg-green-500/10 border-green-500/20"
   },
   {
     name: "Paneer Pizza",
-    description: "Deliciously spiced paneer (cottage cheese) cubes marinated in tandoori spices, paired with green bell peppers and capsicum.",
-    price: 329,
+    description: "Chunky paneer cubes marinated in spices, paired with capsicum and spicy red paprika.",
+    price: 359,
     category: "Veg",
-    image: "https://images.unsplash.com/photo-1534308983496-4fabb1a015ee?auto=format&fit=crop&w=600&q=80",
+    image: "https://res.cloudinary.com/dhc4icfi6/image/upload/v1783885590/pizzas/shwjyppycotysbutqiy7.jpg",
     glowColor: "rgba(234, 179, 8, 0.45)",
     accentGradient: "from-yellow-500 to-orange-500",
     badgeClass: "text-yellow-500 bg-yellow-500/10 border-yellow-500/20"
