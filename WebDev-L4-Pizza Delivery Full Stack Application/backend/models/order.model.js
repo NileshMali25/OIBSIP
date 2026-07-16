@@ -7,6 +7,8 @@ const orderItemSchema = new mongoose.Schema({
     required: false
   },
   customPizza: {
+    name: { type: String },
+    image: { type: String },
     base: { type: String },
     sauce: { type: String },
     cheese: { type: String },

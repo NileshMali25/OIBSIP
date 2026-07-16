@@ -7,13 +7,50 @@ import { addToCart } from '../redux/cartSlice';
 import api from '../services/api';
 import toast from 'react-hot-toast';
 
-const STEP_TITLES = ['Choose Crust', 'Choose Sauce', 'Choose Cheese', 'Choose Toppings'];
+const STEP_TITLES = ['Choose Crust', 'Choose Sauce', 'Choose Cheese', 'Choose Toppings', 'AI Magic'];
 
 // Fallback options in case DB inventory is not seeded yet
 const DEFAULT_CRUSTS = ['Thin Crust', 'Cheese Burst', 'Pan', 'Stuffed', 'Whole Wheat'];
 const DEFAULT_SAUCES = ['Tomato Sauce', 'Schezwan Sauce', 'Pesto Sauce', 'Garlic Sauce', 'BBQ Sauce'];
 const DEFAULT_CHEESES = ['Mozzarella', 'Cheddar', 'Paneer Cheese', 'Double Cheese'];
 const DEFAULT_TOPPINGS = ['Onion', 'Capsicum', 'Tomato', 'Olives', 'Corn', 'Paneer', 'Mushroom', 'Jalapeno', 'Extra Cheese'];
+
+const generateAINameAndImage = (crust, sauce, cheese, toppings) => {
+  const selectedToppings = toppings.length > 0 ? toppings : ['Cheese'];
+  const mainTopping = selectedToppings[0];
+  const secondTopping = selectedToppings[1] || '';
+  
+  const adjectives = [
+    'Ultimate', 'Gourmet', 'Rustic', 'Spicy', 'Royal', 'Smoky', 'Classic', 'Supreme', 'Chef\'s Special'
+  ];
+  const nouns = [
+    'Feast', 'Sensation', 'Delight', 'Paradise', 'Inferno', 'Bliss', 'Fiesta', 'Extravaganza'
+  ];
+  
+  const adj = adjectives[Math.floor(Math.random() * adjectives.length)];
+  const noun = nouns[Math.floor(Math.random() * nouns.length)];
+  
+  let name = '';
+  if (secondTopping) {
+    name = `${adj} ${mainTopping} & ${secondTopping} ${noun}`;
+  } else {
+    name = `${adj} ${mainTopping} ${noun}`;
+  }
+  
+  let image = "https://images.unsplash.com/photo-1513104890138-7c749659a591?auto=format&fit=crop&w=600&q=80"; // Default cheesy pepperoni
+  
+  if (selectedToppings.some(t => t.toLowerCase().includes('paneer'))) {
+    image = "https://images.unsplash.com/photo-1534308983496-4fabb1a015ee?auto=format&fit=crop&w=600&q=80";
+  } else if (selectedToppings.some(t => t.toLowerCase().includes('mushroom') || t.toLowerCase().includes('olive') || t.toLowerCase().includes('capsicum'))) {
+    image = "https://images.unsplash.com/photo-1571407970349-bc81e7e96d47?auto=format&fit=crop&w=600&q=80";
+  } else if (cheese === 'Double Cheese' || crust === 'Cheese Burst' || selectedToppings.includes('Extra Cheese')) {
+    image = "https://images.unsplash.com/photo-1593560708920-61dd98c46a4e?auto=format&fit=crop&w=600&q=80";
+  } else {
+    image = "https://images.unsplash.com/photo-1565299624946-b28f40a0ae38?auto=format&fit=crop&w=600&q=80";
+  }
+  
+  return { name, image };
+};
 
 const CustomBuilder = () => {
   const [step, setStep] = useState(1);
@@ -31,9 +68,32 @@ const CustomBuilder = () => {
   const [selectedSauce, setSelectedSauce] = useState('Tomato Sauce');
   const [selectedCheese, setSelectedCheese] = useState('Mozzarella');
   const [selectedVeggies, setSelectedVeggies] = useState([]);
+  
+  // AI selections
+  const [aiName, setAiName] = useState('');
+  const [aiImage, setAiImage] = useState('');
+  const [isGenerating, setIsGenerating] = useState(false);
 
   const dispatch = useDispatch();
   const navigate = useNavigate();
+
+  // Trigger AI generation when entering Step 5
+  useEffect(() => {
+    if (step === 5) {
+      triggerAIGeneration();
+    }
+  }, [step]);
+
+  const triggerAIGeneration = () => {
+    setIsGenerating(true);
+    setTimeout(() => {
+      const generated = generateAINameAndImage(selectedCrust, selectedSauce, selectedCheese, selectedVeggies);
+      setAiName(generated.name);
+      setAiImage(generated.image);
+      setIsGenerating(false);
+      toast.success('AI Pizza design ready! ✨');
+    }, 1200);
+  };
 
   useEffect(() => {
     fetchOptions();
@@ -93,6 +153,8 @@ const CustomBuilder = () => {
 
   const handleAddToCart = () => {
     const customPizza = {
+      name: aiName || 'Custom Pizza',
+      image: aiImage || 'https://images.unsplash.com/photo-1513104890138-7c749659a591?auto=format&fit=crop&w=600&q=80',
       base: selectedCrust,
       sauce: selectedSauce,
       cheese: selectedCheese,
@@ -101,11 +163,11 @@ const CustomBuilder = () => {
     };
 
     dispatch(addToCart({ customPizza, quantity: 1 }));
-    toast.success('Your Custom Pizza has been added to the cart! 🛒');
+    toast.success(`"${customPizza.name}" added to cart! 🛒`);
     navigate('/cart');
   };
 
-  const nextStep = () => setStep(prev => Math.min(prev + 1, 4));
+  const nextStep = () => setStep(prev => Math.min(prev + 1, 5));
   const prevStep = () => setStep(prev => Math.max(prev - 1, 1));
 
   return (
@@ -263,6 +325,49 @@ const CustomBuilder = () => {
                   </div>
                 </div>
               )}
+
+              {/* STEP 5: AI MAGIC */}
+              {step === 5 && (
+                <div className="flex flex-col items-center justify-center py-4 text-center">
+                  {isGenerating ? (
+                    <div className="flex flex-col items-center justify-center space-y-4 py-12">
+                      <div className="w-16 h-16 border-4 border-brand-red border-t-transparent rounded-full animate-spin"></div>
+                      <p className="text-sm font-bold text-gray-500 dark:text-zinc-400 animate-pulse">
+                        AI Chef is designing your pizza model...
+                      </p>
+                    </div>
+                  ) : (
+                    <div className="w-full max-w-md mx-auto space-y-6">
+                      <div className="relative rounded-2xl overflow-hidden border-2 border-zinc-100 dark:border-zinc-800 shadow-xl group">
+                        <img 
+                          src={aiImage} 
+                          alt={aiName} 
+                          className="w-full h-64 object-cover"
+                        />
+                        <div className="absolute top-4 right-4 bg-zinc-950/80 backdrop-blur text-brand-orange px-3 py-1 rounded-full text-xs font-black flex items-center gap-1 shadow">
+                          <Sparkles size={12} className="animate-spin" /> AI Generated
+                        </div>
+                      </div>
+
+                      <div className="space-y-2">
+                        <h4 className="text-2xl font-black text-gray-900 dark:text-zinc-50 tracking-tight">
+                          {aiName}
+                        </h4>
+                        <p className="text-xs text-gray-400 dark:text-zinc-500 font-medium">
+                          Created by PizzaGo AI based on your recipe ingredients.
+                        </p>
+                      </div>
+
+                      <button
+                        onClick={triggerAIGeneration}
+                        className="px-4 py-2 border border-gray-200 dark:border-zinc-850 hover:bg-gray-50 dark:hover:bg-zinc-800 text-gray-600 dark:text-zinc-300 text-xs font-extrabold rounded-xl transition-all cursor-pointer flex items-center justify-center gap-1.5 mx-auto"
+                      >
+                        Regenerate Name 🎲
+                      </button>
+                    </div>
+                  )}
+                </div>
+              )}
             </motion.div>
           </AnimatePresence>
 
@@ -276,7 +381,7 @@ const CustomBuilder = () => {
               <ArrowLeft size={16} /> Back
             </button>
 
-            {step < 4 ? (
+            {step < 5 ? (
               <button
                 onClick={nextStep}
                 className="btn-secondary py-2 flex items-center gap-1.5 text-sm"
@@ -286,7 +391,8 @@ const CustomBuilder = () => {
             ) : (
               <button
                 onClick={handleAddToCart}
-                className="btn-primary py-2.5 flex items-center gap-1.5 text-sm"
+                disabled={isGenerating}
+                className="btn-primary py-2.5 flex items-center gap-1.5 text-sm disabled:opacity-50"
               >
                 <ShoppingCart size={16} /> Add to Cart
               </button>
@@ -302,6 +408,13 @@ const CustomBuilder = () => {
             </h3>
 
             <div className="space-y-3.5 text-sm mb-8">
+              {step === 5 && aiName && (
+                <div className="p-3 bg-red-50/10 border border-brand-red/20 rounded-xl mb-4 text-left">
+                  <span className="text-[10px] font-bold text-brand-red uppercase tracking-wider block">AI Generated Name</span>
+                  <span className="text-sm font-black text-gray-900 dark:text-zinc-50">{aiName}</span>
+                </div>
+              )}
+
               <div className="flex justify-between items-center text-xs">
                 <span className="text-gray-400 dark:text-zinc-500">Base Flat Rate</span>
                 <span className="font-bold">₹150.00</span>
@@ -368,10 +481,11 @@ const CustomBuilder = () => {
               <span className="text-3xl font-black text-brand-red">₹{calculatePrice().toFixed(2)}</span>
             </div>
             
-            {step === 4 && (
+            {step === 5 && (
               <button
                 onClick={handleAddToCart}
-                className="w-full btn-primary flex items-center justify-center gap-2 py-3"
+                disabled={isGenerating}
+                className="w-full btn-primary flex items-center justify-center gap-2 py-3 disabled:opacity-50"
               >
                 <ShoppingBag size={18} /> Add to Cart
               </button>

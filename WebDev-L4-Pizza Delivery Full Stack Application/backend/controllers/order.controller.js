@@ -79,7 +79,7 @@ exports.createOrder = async (req, res, next) => {
 
       } else if (item.customPizza) {
         // Custom Pizza
-        const { base, sauce, cheese, vegetables } = item.customPizza;
+        const { base, sauce, cheese, vegetables, name, image } = item.customPizza;
         
         // Check ingredient stock levels in inventory
         const checkBase = await Inventory.findOne({ itemName: base, quantity: { $gte: item.quantity } });
@@ -102,6 +102,8 @@ exports.createOrder = async (req, res, next) => {
 
         verifiedItems.push({
           customPizza: {
+            name: name || 'Custom Pizza',
+            image: image || 'https://images.unsplash.com/photo-1513104890138-7c749659a591?auto=format&fit=crop&w=600&q=80',
             base,
             sauce,
             cheese,

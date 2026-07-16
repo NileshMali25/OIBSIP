@@ -109,7 +109,7 @@ const Profile = () => {
                     </div>
 
                     <p className="text-sm font-semibold text-gray-800 dark:text-zinc-200 line-clamp-1 max-w-[280px] sm:max-w-md">
-                      {order.items.map(item => item.pizza ? item.pizza.name : 'Custom Pizza').join(', ')}
+                      {order.items.map(item => item.pizza ? item.pizza.name : (item.customPizza && item.customPizza.name ? item.customPizza.name : 'Custom Pizza')).join(', ')}
                     </p>
 
                     <div className="flex items-center gap-3 mt-3">

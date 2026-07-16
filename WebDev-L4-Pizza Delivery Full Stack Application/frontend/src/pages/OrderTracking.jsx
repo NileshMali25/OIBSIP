@@ -193,7 +193,7 @@ const OrderTracking = () => {
         </h3>
         <div className="space-y-4">
           {order.items.map((item, idx) => {
-            const pizzaName = item.pizza ? item.pizza.name : 'Custom Built Pizza';
+            const pizzaName = item.pizza ? item.pizza.name : (item.customPizza && item.customPizza.name ? item.customPizza.name : 'Custom Built Pizza');
             const pizzaDesc = item.pizza ? item.pizza.description : 
               `Crust: ${item.customPizza.base}, Sauce: ${item.customPizza.sauce}, Cheese: ${item.customPizza.cheese}, Veg: ${item.customPizza.vegetables.join(', ')}`;
             return (

@@ -42,8 +42,8 @@ const Cart = () => {
           {/* Items List */}
           <div className="lg:col-span-2 space-y-4">
             {cart.items.map((item) => {
-              const pizzaName = item.pizza ? item.pizza.name : 'Custom Pizza';
-              const pizzaImage = item.pizza ? item.pizza.image : 'https://images.unsplash.com/photo-1513104890138-7c749659a591?auto=format&fit=crop&w=600&q=80';
+              const pizzaName = item.pizza ? item.pizza.name : (item.customPizza && item.customPizza.name ? item.customPizza.name : 'Custom Pizza');
+              const pizzaImage = item.pizza ? item.pizza.image : (item.customPizza && item.customPizza.image ? item.customPizza.image : 'https://images.unsplash.com/photo-1513104890138-7c749659a591?auto=format&fit=crop&w=600&q=80');
               const details = item.customPizza ? 
                 `Crust: ${item.customPizza.base}, Sauce: ${item.customPizza.sauce}, Cheese: ${item.customPizza.cheese}, Veggies: ${item.customPizza.vegetables.join(', ')}` : 
                 '';
