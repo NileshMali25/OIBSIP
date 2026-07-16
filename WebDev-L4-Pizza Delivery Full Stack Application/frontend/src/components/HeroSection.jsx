@@ -5,11 +5,11 @@ import { Sparkles, ArrowRight, Flame } from 'lucide-react';
 
 const HERO_PIZZAS = [
   {
-    name: "Classic Margherita",
-    description: "Classic Italian delight with 100% real mozzarella cheese, aromatic basil leaves, and our signature slow-simmered tomato sauce base.",
-    price: 249,
-    category: "Veg",
-    image: "https://images.unsplash.com/photo-1604068549290-dea0e4a305ca?auto=format&fit=crop&w=600&q=80",
+    name: "chicken Tikka Masala pizza",
+    description: "Tender chicken chunks marinated in rich aromatic tikka masala gravy, topped with sliced red onions and mozzarella.",
+    price: 399,
+    category: "Non-Veg",
+    image: "https://images.unsplash.com/photo-1574071318508-1cdbab80d002?auto=format&fit=crop&w=600&q=80",
     glowColor: "rgba(239, 68, 68, 0.45)",
     accentGradient: "from-red-500 to-orange-500",
     badgeClass: "text-red-500 bg-red-500/10 border-red-500/20"
@@ -25,21 +25,21 @@ const HERO_PIZZAS = [
     badgeClass: "text-orange-500 bg-orange-500/10 border-orange-500/20"
   },
   {
-    name: "Veggie Delight",
-    description: "A colorful crunch of fresh onions, green bell peppers, diced tomatoes, earthy button mushrooms, and sweet golden corn.",
-    price: 299,
+    name: "Cheese Margerita pizza",
+    description: "A simple yet perfect classic loaded with double helpings of delicious melted mozzarella cheese and basil over a tangy tomato sauce.",
+    price: 249,
     category: "Veg",
-    image: "https://images.unsplash.com/photo-1571407970349-bc81e7e96d47?auto=format&fit=crop&w=600&q=80",
+    image: "https://images.unsplash.com/photo-1590947132387-155cc02f3212?auto=format&fit=crop&w=600&q=80",
     glowColor: "rgba(34, 197, 94, 0.45)",
     accentGradient: "from-green-500 to-emerald-500",
     badgeClass: "text-green-500 bg-green-500/10 border-green-500/20"
   },
   {
-    name: "BBQ Chicken",
-    description: "Smoky hickory BBQ sauce base topped with shredded grilled chicken breasts, red onions, fresh cilantro, and melted cheddar.",
-    price: 449,
-    category: "Non-Veg",
-    image: "https://images.unsplash.com/photo-1574071318508-1cdbab80d002?auto=format&fit=crop&w=600&q=80",
+    name: "Paneer Pizza",
+    description: "Deliciously spiced paneer (cottage cheese) cubes marinated in tandoori spices, paired with green bell peppers and capsicum.",
+    price: 329,
+    category: "Veg",
+    image: "https://images.unsplash.com/photo-1534308983496-4fabb1a015ee?auto=format&fit=crop&w=600&q=80",
     glowColor: "rgba(234, 179, 8, 0.45)",
     accentGradient: "from-yellow-500 to-orange-500",
     badgeClass: "text-yellow-500 bg-yellow-500/10 border-yellow-500/20"
