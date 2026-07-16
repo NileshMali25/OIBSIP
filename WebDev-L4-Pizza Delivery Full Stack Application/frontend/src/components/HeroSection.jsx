@@ -15,11 +15,11 @@ const HERO_PIZZAS = [
     badgeClass: "text-red-500 bg-red-500/10 border-red-500/20"
   },
   {
-    name: "pepperoni pizza",
+    name: "Pepperoni Supreme",
     description: "An American classic loaded with double helpings of spicy cured pepperoni slices, extra mozzarella, and seasoned Italian herbs.",
     price: 399,
     category: "Non-Veg",
-    image: "https://res.cloudinary.com/dhc4icfi6/image/upload/v1783884350/pizzas/w9wbsxgiihomu0zmu1hf.webp",
+    image: "https://res.cloudinary.com/dhc4icfi6/image/upload/v1783883887/pizzas/jxfi1pelj6l0mhrazc5n.webp",
     glowColor: "rgba(249, 115, 22, 0.45)",
     accentGradient: "from-orange-500 to-amber-500",
     badgeClass: "text-orange-500 bg-orange-500/10 border-orange-500/20"
@@ -145,7 +145,7 @@ const HeroSection = () => {
         <div className="lg:col-span-5 flex items-center justify-center relative select-none">
           {/* Radial blur container */}
           <div 
-            className="absolute w-72 h-72 sm:w-80 sm:h-80 rounded-full filter blur-[70px] opacity-40 transition-all duration-1000 ease-out"
+            className="absolute w-80 h-80 sm:w-96 sm:h-96 lg:w-[440px] lg:h-[440px] rounded-full filter blur-[70px] opacity-40 transition-all duration-1000 ease-out"
             style={{ backgroundColor: activePizza.glowColor }}
           />
 
@@ -160,7 +160,7 @@ const HeroSection = () => {
               repeat: Infinity, 
               ease: "easeInOut" 
             }}
-            className="absolute bottom-[-15px] w-64 h-8 bg-black rounded-full filter blur-lg z-0 pointer-events-none"
+            className="absolute bottom-[-15px] w-72 sm:w-80 lg:w-[380px] h-8 bg-black rounded-full filter blur-lg z-0 pointer-events-none"
           />
 
           {/* 3D Tilted Wrapper */}
@@ -169,7 +169,7 @@ const HeroSection = () => {
               perspective: 1200, 
               transformStyle: "preserve-3d" 
             }}
-            className="relative z-10 w-72 h-72 sm:w-80 sm:h-80 flex items-center justify-center pointer-events-none"
+            className="relative z-10 w-80 h-80 sm:w-96 sm:h-96 lg:w-[440px] lg:h-[440px] flex items-center justify-center pointer-events-none"
           >
             <motion.div
               style={{ 
