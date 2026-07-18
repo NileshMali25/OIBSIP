@@ -145,7 +145,7 @@ const HeroSection = () => {
         <div className="lg:col-span-5 flex items-center justify-center relative select-none w-full">
           {/* Radial blur container */}
           <div 
-            className="absolute w-64 h-48 sm:w-80 sm:h-60 lg:w-[360px] lg:h-[270px] rounded-2xl filter blur-[70px] opacity-40 transition-all duration-1000 ease-out"
+            className="absolute w-full max-w-[280px] sm:max-w-[360px] lg:max-w-[460px] aspect-[4/3] rounded-2xl filter blur-[70px] opacity-40 transition-all duration-1000 ease-out"
             style={{ backgroundColor: activePizza.glowColor }}
           />
 
@@ -160,7 +160,7 @@ const HeroSection = () => {
               repeat: Infinity, 
               ease: "easeInOut" 
             }}
-            className="absolute bottom-[-15px] w-56 sm:w-72 lg:w-[320px] h-8 bg-black rounded-full filter blur-lg z-0 pointer-events-none"
+            className="absolute bottom-[-15px] w-11/12 max-w-[240px] sm:max-w-[320px] lg:max-w-[400px] h-8 bg-black rounded-full filter blur-lg z-0 pointer-events-none"
           />
 
           {/* 3D Tilted Wrapper */}
@@ -169,7 +169,7 @@ const HeroSection = () => {
               perspective: 1200, 
               transformStyle: "preserve-3d" 
             }}
-            className="relative z-10 w-64 h-48 sm:w-80 sm:h-60 lg:w-[360px] lg:h-[270px] flex items-center justify-center pointer-events-none"
+            className="relative z-10 w-full max-w-[280px] sm:max-w-[360px] lg:max-w-[460px] aspect-[4/3] flex items-center justify-center pointer-events-none"
           >
             <motion.div
               style={{ 
