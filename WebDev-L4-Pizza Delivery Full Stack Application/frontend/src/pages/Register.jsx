@@ -106,7 +106,7 @@ const Register = () => {
               </div>
               <input
                 type="text"
-                placeholder="+919876543210"
+                placeholder="+919356315793"
                 className={`custom-input pl-10 ${errors.phone ? 'border-red-500' : ''}`}
                 {...register('phone', { 
                   required: 'Phone number is required',

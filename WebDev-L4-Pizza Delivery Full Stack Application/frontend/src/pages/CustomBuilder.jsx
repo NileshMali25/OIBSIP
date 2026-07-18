@@ -7,7 +7,7 @@ import { addToCart } from '../redux/cartSlice';
 import api from '../services/api';
 import toast from 'react-hot-toast';
 
-const STEP_TITLES = ['Choose Crust', 'Choose Sauce', 'Choose Cheese', 'Choose Toppings', 'AI Magic'];
+const STEP_TITLES = ['Choose Crust', 'Choose Sauce', 'Choose Cheese', 'Choose Toppings', 'Pizza Design'];
 
 // Fallback options in case DB inventory is not seeded yet
 const DEFAULT_CRUSTS = ['Thin Crust', 'Cheese Burst', 'Pan', 'Stuffed', 'Whole Wheat'];
@@ -91,7 +91,7 @@ const CustomBuilder = () => {
       setAiName(generated.name);
       setAiImage(generated.image);
       setIsGenerating(false);
-      toast.success('AI Pizza design ready! ✨');
+      toast.success('Pizza design ready! ✨');
     }, 1200);
   };
 
@@ -326,14 +326,14 @@ const CustomBuilder = () => {
                 </div>
               )}
 
-              {/* STEP 5: AI MAGIC */}
+              {/* STEP 5: Pizza Design */}
               {step === 5 && (
                 <div className="flex flex-col items-center justify-center py-4 text-center">
                   {isGenerating ? (
                     <div className="flex flex-col items-center justify-center space-y-4 py-12">
                       <div className="w-16 h-16 border-4 border-brand-red border-t-transparent rounded-full animate-spin"></div>
                       <p className="text-sm font-bold text-gray-500 dark:text-zinc-400 animate-pulse">
-                        AI Chef is designing your pizza model...
+                        Preparing your custom pizza design...
                       </p>
                     </div>
                   ) : (
@@ -345,7 +345,7 @@ const CustomBuilder = () => {
                           className="w-full h-64 object-cover"
                         />
                         <div className="absolute top-4 right-4 bg-zinc-950/80 backdrop-blur text-brand-orange px-3 py-1 rounded-full text-xs font-black flex items-center gap-1 shadow">
-                          <Sparkles size={12} className="animate-spin" /> AI Generated
+                          <Sparkles size={12} className="animate-spin" /> Custom Pizza
                         </div>
                       </div>
 
@@ -354,16 +354,9 @@ const CustomBuilder = () => {
                           {aiName}
                         </h4>
                         <p className="text-xs text-gray-400 dark:text-zinc-500 font-medium">
-                          Created by PizzaGo AI based on your recipe ingredients.
+                          Created based on your selected ingredients.
                         </p>
                       </div>
-
-                      <button
-                        onClick={triggerAIGeneration}
-                        className="px-4 py-2 border border-gray-200 dark:border-zinc-850 hover:bg-gray-50 dark:hover:bg-zinc-800 text-gray-600 dark:text-zinc-300 text-xs font-extrabold rounded-xl transition-all cursor-pointer flex items-center justify-center gap-1.5 mx-auto"
-                      >
-                        Regenerate Name 🎲
-                      </button>
                     </div>
                   )}
                 </div>
@@ -410,7 +403,7 @@ const CustomBuilder = () => {
             <div className="space-y-3.5 text-sm mb-8">
               {step === 5 && aiName && (
                 <div className="p-3 bg-red-50/10 border border-brand-red/20 rounded-xl mb-4 text-left">
-                  <span className="text-[10px] font-bold text-brand-red uppercase tracking-wider block">AI Generated Name</span>
+                  <span className="text-[10px] font-bold text-brand-red uppercase tracking-wider block">Pizza Name</span>
                   <span className="text-sm font-black text-gray-900 dark:text-zinc-50">{aiName}</span>
                 </div>
               )}

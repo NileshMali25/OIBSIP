@@ -21,7 +21,7 @@ const createUsers = async () => {
       name: 'Pizzeria Admin',
       email: 'admin@pizzadelivery.com',
       password: 'admin123',
-      phone: '9876543210',
+      phone: '9356315793',
       role: 'Admin',
       verified: true
     });

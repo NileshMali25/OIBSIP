@@ -142,10 +142,10 @@ const HeroSection = () => {
         </div>
 
         {/* Right Side: High-End 3D perspective pizza animation */}
-        <div className="lg:col-span-5 flex items-center justify-center relative select-none">
+        <div className="lg:col-span-5 flex items-center justify-center relative select-none w-full">
           {/* Radial blur container */}
           <div 
-            className="absolute w-80 h-80 sm:w-96 sm:h-96 lg:w-[440px] lg:h-[440px] rounded-full filter blur-[70px] opacity-40 transition-all duration-1000 ease-out"
+            className="absolute w-64 h-64 sm:w-80 sm:h-80 lg:w-[360px] lg:h-[360px] rounded-full filter blur-[70px] opacity-40 transition-all duration-1000 ease-out"
             style={{ backgroundColor: activePizza.glowColor }}
           />
 
@@ -160,7 +160,7 @@ const HeroSection = () => {
               repeat: Infinity, 
               ease: "easeInOut" 
             }}
-            className="absolute bottom-[-15px] w-72 sm:w-80 lg:w-[380px] h-8 bg-black rounded-full filter blur-lg z-0 pointer-events-none"
+            className="absolute bottom-[-15px] w-56 sm:w-72 lg:w-[320px] h-8 bg-black rounded-full filter blur-lg z-0 pointer-events-none"
           />
 
           {/* 3D Tilted Wrapper */}
@@ -169,7 +169,7 @@ const HeroSection = () => {
               perspective: 1200, 
               transformStyle: "preserve-3d" 
             }}
-            className="relative z-10 w-80 h-80 sm:w-96 sm:h-96 lg:w-[440px] lg:h-[440px] flex items-center justify-center pointer-events-none"
+            className="relative z-10 w-64 h-64 sm:w-80 sm:h-80 lg:w-[360px] lg:h-[360px] flex items-center justify-center pointer-events-none"
           >
             <motion.div
               style={{ 
