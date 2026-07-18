@@ -198,17 +198,11 @@ const HeroSection = () => {
                     }}
                     className="w-full h-full flex items-center justify-center"
                   >
-                    {/* Continuous slow spin motion image */}
-                    <motion.img
+                    {/* Full pizza image with rounded corners */}
+                    <img
                       src={activePizza.image}
                       alt={activePizza.name}
-                      animate={{ rotate: 360 }}
-                      transition={{ 
-                        duration: 35, 
-                        repeat: Infinity, 
-                        ease: "linear" 
-                      }}
-                      className="w-full h-full object-cover rounded-full border-4 border-zinc-800/40 shadow-2xl drop-shadow-[0_25px_60px_rgba(0,0,0,0.5)]"
+                      className="w-full h-full object-cover rounded-3xl border-4 border-zinc-800/40 shadow-2xl drop-shadow-[0_25px_60px_rgba(0,0,0,0.5)]"
                     />
                   </motion.div>
                 </motion.div>
