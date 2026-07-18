@@ -39,11 +39,25 @@ const Dashboard = () => {
     }
   };
 
-  // Local filter for search
-  const filteredPizzas = pizzas.filter(pizza => 
-    pizza.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
-    pizza.description.toLowerCase().includes(searchTerm.toLowerCase())
-  );
+  // Category sequence order: Veg -> Non-Veg -> Sides -> Beverages
+  const CATEGORY_ORDER = {
+    'Veg': 1,
+    'Non-Veg': 2,
+    'Sides': 3,
+    'Beverages': 4
+  };
+
+  // Local filter and sorting for search & category sequence
+  const filteredPizzas = pizzas
+    .filter(pizza => 
+      pizza.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
+      pizza.description.toLowerCase().includes(searchTerm.toLowerCase())
+    )
+    .sort((a, b) => {
+      const orderA = CATEGORY_ORDER[a.category] || 99;
+      const orderB = CATEGORY_ORDER[b.category] || 99;
+      return orderA - orderB;
+    });
 
   const handleQuickAdd = (pizza, e) => {
     e.stopPropagation(); // Avoid opening details modal
