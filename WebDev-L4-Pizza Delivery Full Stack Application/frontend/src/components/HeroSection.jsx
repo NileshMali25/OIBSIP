@@ -145,18 +145,18 @@ const HeroSection = () => {
         <div className="lg:col-span-5 flex items-center justify-center relative select-none w-full">
           {/* Radial blur container */}
           <div 
-            className="absolute w-64 h-64 sm:w-80 sm:h-80 lg:w-[360px] lg:h-[360px] rounded-full filter blur-[70px] opacity-40 transition-all duration-1000 ease-out"
+            className="absolute w-64 h-48 sm:w-80 sm:h-60 lg:w-[360px] lg:h-[270px] rounded-2xl filter blur-[70px] opacity-40 transition-all duration-1000 ease-out"
             style={{ backgroundColor: activePizza.glowColor }}
           />
 
           {/* Scaling Shadow underneath the pizza */}
           <motion.div 
             animate={{ 
-              scale: [1, 0.85, 1], 
+              scale: [1, 0.92, 1], 
               opacity: [0.35, 0.15, 0.35] 
             }}
             transition={{ 
-              duration: 4, 
+              duration: 3.5, 
               repeat: Infinity, 
               ease: "easeInOut" 
             }}
@@ -169,12 +169,12 @@ const HeroSection = () => {
               perspective: 1200, 
               transformStyle: "preserve-3d" 
             }}
-            className="relative z-10 w-64 h-64 sm:w-80 sm:h-80 lg:w-[360px] lg:h-[360px] flex items-center justify-center pointer-events-none"
+            className="relative z-10 w-64 h-48 sm:w-80 sm:h-60 lg:w-[360px] lg:h-[270px] flex items-center justify-center pointer-events-none"
           >
             <motion.div
               style={{ 
-                rotateX: 25, 
-                rotateY: -10, 
+                rotateX: 10, 
+                rotateY: -5, 
                 transformStyle: "preserve-3d" 
               }}
               className="w-full h-full flex items-center justify-center"
@@ -182,17 +182,17 @@ const HeroSection = () => {
               <AnimatePresence mode="wait">
                 <motion.div
                   key={index}
-                  initial={{ rotate: -220, scale: 0.2, opacity: 0 }}
-                  animate={{ rotate: 0, scale: 1, opacity: 1 }}
-                  exit={{ rotate: 220, scale: 0.2, opacity: 0 }}
-                  transition={{ duration: 0.75, ease: [0.16, 1, 0.3, 1] }}
+                  initial={{ opacity: 0, y: 20, scale: 0.95 }}
+                  animate={{ opacity: 1, y: 0, scale: 1 }}
+                  exit={{ opacity: 0, y: -20, scale: 0.95 }}
+                  transition={{ duration: 0.5, ease: [0.25, 1, 0.5, 1] }}
                   className="w-full h-full flex items-center justify-center"
                 >
                   {/* Floating vertical motion container */}
                   <motion.div
-                    animate={{ y: [0, -14, 0] }}
+                    animate={{ y: [0, -8, 0] }}
                     transition={{ 
-                      duration: 4, 
+                      duration: 3.5, 
                       repeat: Infinity, 
                       ease: "easeInOut" 
                     }}
@@ -202,7 +202,7 @@ const HeroSection = () => {
                     <img
                       src={activePizza.image}
                       alt={activePizza.name}
-                      className="w-full h-full object-cover rounded-3xl border-4 border-zinc-800/40 shadow-2xl drop-shadow-[0_25px_60px_rgba(0,0,0,0.5)]"
+                      className="w-full h-full object-cover rounded-2xl border-4 border-zinc-800/40 shadow-2xl drop-shadow-[0_25px_60px_rgba(0,0,0,0.5)]"
                     />
                   </motion.div>
                 </motion.div>
